@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Competencies - Paged Intro + Competencies</title>
+<style>
+:root {
+  --ink: #18365D;
+  --ink-light: #18365D;
+  --ink-faint: #0A799A;
+  --cream: #F4F4F4;
+  --cream-dark: #00ABC8;
+  --gold: #FFB500;
+  --white: #FFFFFF;
+  --shadow: 0 4px 24px rgba(24,54,93,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.sticky-top { position: sticky; top: 0; z-index: 101; }
+.site-header { background: var(--ink); color: var(--white); padding: 8px 16px; overflow: hidden; }
+.header-title {
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: clamp(18px,2.6vw,24px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #fff;
+}
+.header-title em { font-style: italic; color: var(--gold); }
+.header-subtitle {
+  font-size: 12px;
+  color: rgba(255,255,255,.85);
+  font-weight: 300;
+  max-width: 520px;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+.print-name { display: none; font-size: 13px; color: rgba(255,255,255,.75); margin-top: 6px; letter-spacing: .04em; }
+.progress-bar-wrap {
+  background: var(--ink);
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 12px rgba(24,54,93,.18);
+}
+.progress-label { font-size: 11px; color: rgba(255,255,255,.55); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.progress-track { flex: 1; height: 4px; background: rgba(255,255,255,.15); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), #FFFFFF); border-radius: 2px; transition: width .4s ease; width: 0%; }
+.progress-count { font-size: 11px; color: var(--gold); font-weight: 500; white-space: nowrap; min-width: 48px; text-align: right; }
+.main-container { max-width: 880px; margin: 0 auto; padding: 16px 12px 48px; }
+.intro-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--gold);
+}
+.intro-card p { font-size: 14px; color: var(--ink-light); line-height: 1.7; }
+.name-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.name-row label { font-size: 13px; font-weight: 500; white-space: nowrap; }
+.name-input {
+  flex: 1;
+  min-width: 200px;
+  border: 1.5px solid var(--cream-dark);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--cream);
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+.name-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,181,0,.15); }
+.scale-legend { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.scale-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--ink-light);
+}
+.scale-legend-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+}
+.competency-section { background: #fff; border-radius: 12px; margin-bottom: 16px; box-shadow: var(--shadow); overflow: hidden; }
+.competency-header { background: var(--ink); padding: 12px 16px 10px; position: relative; }
+.competency-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 16px; right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+}
+.competency-name {
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.competency-definition { font-size: 12px; color: rgba(255,255,255,.92); font-style: italic; font-weight: 300; line-height: 1.45; }
+.competency-avg-badge {
+  position: absolute;
+  top: 10px; right: 16px;
+  background: rgba(255,181,0,.18);
+  border: 1px solid rgba(255,181,0,.4);
+  border-radius: 8px;
+  padding: 4px 8px;
+  text-align: center;
+  min-width: 58px;
+  display: none;
+}
+.competency-avg-value { font-size: 20px; font-weight: 600; color: var(--gold); line-height: 1; }
+.competency-avg-label { font-size: 9px; color: rgba(255,255,255,.5); letter-spacing: .12em; text-transform: uppercase; margin-top: 1px; }
+.statements-list { padding: 6px 0; }
+.statement-row { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--cream); transition: background .15s; }
+.statement-row:last-child { border-bottom: none; }
+.statement-row:hover { background: #F4F4F4; }
+.statement-text { flex: 1; font-size: 14px; color: var(--ink-light); line-height: 1.5; }
+.radio-scale { display: flex; gap: 6px; flex-shrink: 0; }
+.radio-option { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.radio-option input[type="radio"] { display: none; }
+.radio-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid #0A799A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1B365D;
+  cursor: pointer;
+  transition: all .18s ease;
+  user-select: none;
+  background: var(--cream);
+}
+.radio-option input[type="radio"]:checked + .radio-btn {
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  transform: scale(1.06);
+}
+.radio-btn:hover { border-color: var(--gold); color: var(--ink); background: #FFF5D6; transform: scale(1.02); }
+.radio-option[data-val="1"] input:checked + .radio-btn { background: #0A799A; }
+.radio-option[data-val="2"] input:checked + .radio-btn { background: #AA4AC4; }
+.radio-option[data-val="3"] input:checked + .radio-btn { background: #FFB500; color: #fff; }
+.radio-option[data-val="4"] input:checked + .radio-btn { background: #00ABC8; }
+.radio-option[data-val="5"] input:checked + .radio-btn { background: #1B365D; }
+.radio-label { font-size: 8px; color: #1B365D; text-align: center; white-space: nowrap; letter-spacing: .04em; text-transform: uppercase; }
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--cream);
+  background: #fff;
+}
+.wizard-step-ind { font-size: 11px; color: var(--ink-faint); letter-spacing: .06em; text-transform: uppercase; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: #18365D; transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid #ddd; }
+.btn-secondary:hover { border-color: var(--gold); background: #F4F4F4; }
+.btn-gold { background: #18365D; color: #fff; }
+.btn-gold:hover { background: #0A799A; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(24,54,93,.35); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.results-section { display: none; }
+.results-section.visible { display: block; }
+.results-intro { text-align: center; padding: 20px 0 16px; }
+.results-intro h2 {
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.results-intro p { font-size: 13px; color: var(--ink-faint); }
+.chart-card { background: #fff; border-radius: 12px; margin-bottom: 16px; box-shadow: var(--shadow); overflow: hidden; }
+.chart-card-header {
+  background: var(--ink);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+}
+.chart-card-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 16px; right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+}
+.chart-card-title { font-size: 18px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+.chart-card-def { font-size: 12px; color: rgba(255,255,255,.92); font-style: italic; line-height: 1.5; max-width: 500px; }
+.avg-pill {
+  background: rgba(255,181,0,.18);
+  border: 1px solid rgba(255,181,0,.4);
+  border-radius: 10px;
+  padding: 6px 12px;
+  text-align: center;
+  flex-shrink: 0;
+  min-width: 84px;
+}
+.avg-pill-num { font-size: 24px; font-weight: 600; color: var(--gold); line-height: 1; }
+.avg-pill-lbl { font-size: 9px; color: rgba(255,255,255,.5); letter-spacing: .12em; text-transform: uppercase; margin-top: 2px; }
+.avg-pill-word { font-size: 10px; color: var(--gold); margin-top: 2px; font-weight: 500; letter-spacing: .06em; }
+.chart-card-body { padding: 16px; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+.bar-label { font-size: 13px; color: var(--ink-light); line-height: 1.4; flex: 1; min-width: 0; }
+.bar-label.bold { font-weight: 600; color: var(--ink); }
+.bar-wrap { width: 240px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+.bar-track { flex: 1; height: 20px; background: var(--cream); border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 5px; transition: width .8s cubic-bezier(.22,1,.36,1); width: 0%; }
+.bar-fill.c1 { background: #0A799A; }
+.bar-fill.c2 { background: #AA4AC4; }
+.bar-fill.c3 { background: #FFB500; }
+.bar-fill.c4 { background: #00ABC8; }
+.bar-fill.c5 { background: #1B365D; }
+.bar-fill.avg { background: linear-gradient(90deg, #18365D 0%, #0A799A 100%); }
+.bar-val { font-size: 17px; font-weight: 600; color: var(--ink); width: 24px; text-align: right; flex-shrink: 0; }
+.avg-divider { height: 1.5px; background: var(--cream); margin: 10px 0; }
+.tick-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+.tick-spacer { flex: 1; }
+.tick-labels { width: 240px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+.tick-track { flex: 1; display: flex; justify-content: space-between; padding: 0 2px; }
+.tick-track span { font-size: 9px; color: var(--ink-faint); letter-spacing: .05em; }
+.tick-val-spacer { width: 24px; flex-shrink: 0; }
+.step { display: none; }
+.step.active { display: block; }
+@media print {
+  .progress-bar-wrap, .actions, .intro-card, .results-intro { display: none !important; }
+  #assessment { display: none !important; }
+  .site-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .print-name { display: block !important; }
+  .competency-avg-badge { display: block !important; }
+  .results-section { display: block !important; }
+  .chart-card { break-inside: avoid; }
+  .chart-card-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .avg-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; }
+  .main-container { padding-top: 10px; padding-bottom: 10px; }
+}
+@media (max-width: 640px) {
+  .header-subtitle { display: none; }
+  .site-header { padding: 8px 10px; }
+  .statement-row { flex-direction: column; align-items: flex-start; padding: 12px 12px; }
+  .competency-header, .chart-card-header, .chart-card-body { padding-left: 12px; padding-right: 12px; }
+  .bar-wrap, .tick-labels { width: 160px; }
+  .chart-card-header { flex-direction: column; }
+  .radio-label { display: none; }
+  .progress-bar-wrap { padding: 4px 10px; }
+}
+</style>
+</head>
+<body>
+<div class="sticky-top" id="stickyTop">
+  <div class="site-header" id="siteHeader">
+    <h1 class="header-title">Fred Hutch Cancer Center<br>Core Competencies<br><em>Self Assessment</em></h1>
+    <div class="print-name" id="printName"></div>
+  </div>
+  <div class="progress-bar-wrap" id="progressWrap">
+    <span class="progress-label">Progress</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 42</span>
+  </div>
+</div>
+
+<div class="main-container">
+  <div id="assessment"></div>
+
+  <div class="results-section" id="resultsSection">
+    <div class="results-intro">
+      <h2>Your Results</h2>
+      <p id="resultsSubtitle">Score averages per competency and statement (1 = Almost Never · 5 = Almost Always)</p>
+    </div>
+
+    <div class="chart-card" id="summaryCard">
+      <div class="chart-card-header">
+        <div>
+          <div class="chart-card-title">Overall Summary</div>
+          <div class="chart-card-def">Average score across all competencies</div>
+        </div>
+        <div id="resultsUserInfo" style="margin-top:8px;font-size:13px;color:#fff;"></div>
+      </div>
+      <div class="chart-card-body" id="summaryBars"></div>
+    </div>
+
+    <div id="detailCharts"></div>
+
+    <div class="actions" style="padding-bottom:12px;">
+      <button class="btn btn-primary" onclick="window.print()">⎙ Print Report</button>
+      <button class="btn btn-secondary" onclick="resetAll()">↻ Reset All</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CONFIG - Power Automate endpoint
+const POWERAUTOMATEURL = "https://default0054a3eab394418bad1a174138231f.d6.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/ef6001c488fe4902bb0034ebda9b03ff/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gG8FNz52OIABf4kVHABlIbWzTKLYLM4JgYEoD1W7Ehc";
+const ASSESSMENTNAME = "Core Competencies Self Assessment";
+
+// Data
+const COMPETENCIES = [
+  { name: "Exhibits Accountability", definition: "Holds self and others to meet commitments.", statements: [
+    "I accept responsibility for my actions.",
+    "I follow-through on commitments and support others to do the same.",
+    "I act with a clear sense of ownership.",
+    "I ask for and provide clarity on expectations, roles, and responsibilities."
+  ]},
+  { name: "Demonstrates Change Agility", definition: "Responds effectively and adapts to change.", statements: [
+    "I operate effectively even during uncertainty and ambiguity.",
+    "I can decide and act without the full picture.",
+    "I adapt my approach and style to meet the shifting conditions and demands.",
+    "I take constructive action to navigate difficulties or obstacles.",
+    "I learn quickly when faced with new situations.",
+    "I bounce back from setbacks and grow from hardships."
+  ]},
+  { name: "Collaborates", definition: "Builds partnerships and works cooperatively with others to meet shared objectives.", statements: [
+    "I build partnerships and work with others, in and across organizations, to achieve shared objectives.",
+    "I balance my own interests with other people's interests.",
+    "I resolve conflict while maintaining relationships.",
+    "I credit others for their contributions and accomplishments.",
+    "I gain the trust and support of others."
+  ]},
+  { name: "Communicates Effectively", definition: "Develops and delivers multi-mode communications that convey a clear understanding of the unique needs of different audiences.", statements: [
+    "I convey and receive information clearly.",
+    "I check for understanding when giving and receiving information.",
+    "I adapt my style to fit the audience and the message.",
+    "I attentively listen to others.",
+    "I encourage the open expression of diverse ideas and opinions."
+  ]},
+  { name: "Interpersonal Savvy", definition: "Relates openly and comfortably with diverse groups of people.", statements: [
+    "I am able to relate to and build solid working relationships with diverse groups of people.",
+    "I act with diplomacy, tact, and respect.",
+    "I build rapport in an open, friendly, and accepting way.",
+    "I value different styles, cultures, and perspectives.",
+    "I respond with curiosity to conflict and feedback."
+  ]},
+  { name: "Results-Oriented", definition: "Consistently achieves results, even under tough circumstances.", statements: [
+    "I act in a timely manner.",
+    "I persist in accomplishing objectives despite obstacles and setbacks.",
+    "I strive for efficiency and effectiveness.",
+    "I display a can-do attitude.",
+    "I push myself and help others to achieve results.",
+    "I set challenging goals and have high standards.",
+    "I step up to handle tough issues."
+  ]},
+  { name: "Demonstrates Self-Awareness", definition: "Uses a combination of feedback and reflection to gain insight into personal strengths, weaknesses, and impact on others.", statements: [
+    "I understand my emotions, styles, strengths, and weaknesses, and recognize the appropriate time and place to express them.",
+    "I use feedback and reflect on my impact to improve my individual effectiveness.",
+    "I am able to articulate the cause behind my feelings and mood.",
+    "I reflect on my actions and impact on others.",
+    "I proactively seek feedback without becoming defensive."
+  ]},
+  { name: "Instills Trust", definition: "Gains the confidence and trust of others through honest, integrity, and authenticity.", statements: [
+    "I act with honesty, integrity, and authenticity.",
+    "I gain the confidence and trust of others.",
+    "I follow through on commitments.",
+    "I am seen as direct and truthful.",
+    "I show consistency between my words and my actions."
+  ]}
+];
+const TOTAL = 42;
+const REQUIRECOMPLETEPERSECTION = false; // gate "Next" until section complete: off
+
+let answers = {};
+let currentStep = 0;
+let steps = [];
+
+function scoreWord(avg) {
+  if (avg >= 4.5) return "Almost Always";
+  if (avg >= 3.5) return "Often";
+  if (avg >= 2.5) return "Sometimes";
+  if (avg >= 1.5) return "Rarely";
+  return "Almost Never";
+}
+function colorClass(val) { return "c" + Math.min(Math.max(Math.round(val),1),5); }
+
+function sectionComplete(ci) {
+  const comp = COMPETENCIES[ci];
+  return comp.statements.every((_, si) => answers[ci + "-" + si] !== undefined);
+}
+function updateNavState() {
+  const nav = steps[currentStep]?.querySelector(".btn-next");
+  if (!nav) return;
+  const compIndex = currentStep - 1;
+  nav.disabled = REQUIRECOMPLETEPERSECTION && compIndex >= 0 && !sectionComplete(compIndex);
+}
+function recordAnswer(key, val) {
+  answers[key] = val;
+  const done = Object.keys(answers).length;
+  document.getElementById("progressFill").style.width = (done / TOTAL * 100) + "%";
+  document.getElementById("progressCount").textContent = done + " / " + TOTAL;
+  const ci = parseInt(key.split("-")[0]);
+  const comp = COMPETENCIES[ci];
+  let tot = 0, cnt = 0;
+  comp.statements.forEach((_, si) => {
+    const v = answers[ci + "-" + si];
+    if (v !== undefined) { tot += v; cnt++; }
+  });
+  const el = document.getElementById("avg-" + ci);
+  if (el) el.textContent = cnt > 0 ? (tot / cnt).toFixed(1) : "";
+  updateNavState();
+}
+function compAvg(ci) {
+  const comp = COMPETENCIES[ci];
+  let tot = 0;
+  comp.statements.forEach((_, si) => { tot += answers[ci + "-" + si] || 0; });
+  return tot / comp.statements.length;
+}
+
+// BUILD ROWS FOR EXCEL SUBMISSION
+function buildSubmissionRows() {
+  return COMPETENCIES.map((comp, ci) => ({
+    competency: comp.name,
+    competencyAverage: Number(compAvg(ci).toFixed(2))
+  }));
+}
+
+function makeBarRow(label, val, cc, idSuffix, delay, bold) {
+  const pct = val / 5 * 100;
+  const id = "bar-" + idSuffix;
+  const div = document.createElement("div");
+  div.className = "bar-row";
+  const displayVal = typeof val === "number" ? (!Number.isInteger(val) ? val.toFixed(1) : val) : val;
+  div.innerHTML = '<div class="bar-label' + (bold ? " bold" : "") + '">' + label + '</div>' +
+    '<div class="bar-wrap"><div class="bar-track"><div class="bar-fill ' + cc + '" id="' + id + '" style="width:0%"></div></div>' +
+    '<div class="bar-val">' + displayVal + '</div></div>';
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.style.width = pct + "%";
+    }, delay);
+  });
+  return div;
+}
+function makeTickRow() {
+  const div = document.createElement("div");
+  div.className = "tick-row";
+  div.innerHTML = '<div class="tick-spacer"></div>' +
+    '<div class="tick-labels"><div class="tick-track"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>' +
+    '<div class="tick-val-spacer"></div></div>';
+  return div;
+}
+
+function showResults() {
+  const name = document.getElementById("userName")?.value?.trim();
+  const dateStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  if (name) {
+    document.getElementById("resultsUserInfo").innerHTML = "Completed by " + name + "<br>Date completed: " + dateStr;
+    document.getElementById("printName").textContent = name + " — " + dateStr;
+  }
+  const sb = document.getElementById("summaryBars");
+  sb.innerHTML = "";
+  let delay = 60;
+  COMPETENCIES.forEach((comp, ci) => {
+    const avg = compAvg(ci);
+    sb.appendChild(makeBarRow(comp.name, avg, colorClass(avg), "sum-" + ci, delay, true));
+    delay += 100;
+  });
+  sb.appendChild(makeTickRow());
+
+  const dc = document.getElementById("detailCharts");
+  dc.innerHTML = "";
+  COMPETENCIES.forEach((comp, ci) => {
+    const avg = compAvg(ci);
+    const card = document.createElement("div");
+    card.className = "chart-card";
+    const header = document.createElement("div");
+    header.className = "chart-card-header";
+    header.innerHTML = '<div><div class="chart-card-title">' + comp.name + '</div>' +
+      '<div class="chart-card-def">' + comp.definition + '</div></div>' +
+      '<div class="avg-pill"><div class="avg-pill-num">' + avg.toFixed(1) + '</div>' +
+      '<div class="avg-pill-lbl">Section Avg</div><div class="avg-pill-word">' + scoreWord(avg) + '</div></div>';
+    card.appendChild(header);
+    const body = document.createElement("div");
+    body.className = "chart-card-body";
+    let d = 80;
+    comp.statements.forEach((stmt, si) => {
+      const val = answers[ci + "-" + si] || 0;
+      body.appendChild(makeBarRow(stmt, val, colorClass(val), d + "-" + ci + "-" + si, d, false));
+      d += 55;
+    });
+    const divEl = document.createElement("div");
+    divEl.className = "avg-divider";
+    body.appendChild(divEl);
+    body.appendChild(makeBarRow("Section Average", avg, "avg", "avg-" + ci, d, true));
+    body.appendChild(makeTickRow());
+    card.appendChild(body);
+    dc.appendChild(card);
+  });
+
+  document.getElementById("resultsSection").classList.add("visible");
+  document.getElementById("resultsSection").scrollIntoView({ behavior: "smooth", block: "start" });
+  sendResultsToExcel();
+}
+
+function resetAll() {
+  if (!confirm("Reset all answers and start over?")) return;
+  answers = {};
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  document.getElementById("resultsSection").classList.remove("visible");
+  document.getElementById("progressFill").style.width = "0%";
+  document.getElementById("progressCount").textContent = "0 / 42";
+  COMPETENCIES.forEach((_, ci) => {
+    const el = document.getElementById("avg-" + ci);
+    if (el) el.textContent = "";
+  });
+  goTo(0);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateHeaderForStep() {
+  const header = document.getElementById("siteHeader");
+  if (currentStep === 0) header.style.display = "block";
+  else header.style.display = "none";
+}
+
+function goTo(i) {
+  if (i < 0 || i >= steps.length) return;
+  steps[currentStep]?.classList.remove("active");
+  steps[i]?.classList.add("active");
+  currentStep = i;
+  updateNavState();
+  updateHeaderForStep();
+  steps[i].scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function buildWizard() {
+  const a = document.getElementById("assessment");
+  a.innerHTML = "";
+
+  // Intro Step (Step 0)
+  const intro = document.createElement("div");
+  intro.className = "competency-section";
+  intro.innerHTML = `
+    <div class="intro-card">
+      <p>Use this self-assessment to identify specific areas for development related to the Competencies. For each statement, click the circled numbers to rate how often you demonstrate the behavior.<br><br>
+      Navigate each competency using <strong>Next</strong> and <strong>Previous</strong>. When complete, select <strong>View My Results</strong> to generate charts, and <strong>Print Report</strong> to save them. We recommend you print them for your reference as your results are not stored in Hutch Learning.<br><br>
+      <strong>Please Read:</strong> This self-assessment is a reflection tool, not a validated psychometric instrument. It has not been tested for statistical reliability or validity, and it is not a substitute for formal performance appraisal, competency certification, or clinical or diagnostic assessment. Your results reflect your own perception at a single point in time and may not fully capture how others experience your behavior. Use them to <strong>inform</strong> — not determine — your development priorities. Fred Hutch does not use this tool for hiring, promotion, compensation, or other formal employment decisions.<br><br>
+      We capture assessment data anonymously and use it only to inform which learning programs we offer. No personal information is tracked or tied to your responses. Results are not shared with HR or your manager unless you choose to share them yourself.</p>
+      <div class="scale-legend">
+        <div class="scale-legend-item"><div class="scale-legend-dot" style="background:#0A799A">1</div> Almost Never</div>
+        <div class="scale-legend-item"><div class="scale-legend-dot" style="background:#AA4AC4">2</div> Rarely</div>
+        <div class="scale-legend-item"><div class="scale-legend-dot" style="background:#FFB500">3</div> Sometimes</div>
+        <div class="scale-legend-item"><div class="scale-legend-dot" style="background:#00ABC8">4</div> Often</div>
+        <div class="scale-legend-item"><div class="scale-legend-dot" style="background:#1B365D">5</div> Almost Always</div>
+      </div>
+      <div class="name-row">
+        <label for="userName">Your Name</label>
+        <input class="name-input" type="text" id="userName" placeholder="Enter your name" autocomplete="name">
+      </div>
+    </div>
+    <div class="wizard-nav">
+      <div class="wizard-step-ind"></div>
+      <div><button class="btn btn-gold btn-next" onclick="goTo(1)">Next</button></div>
+    </div>
+  `;
+  a.appendChild(intro);
+
+  // Competency Steps (1..N)
+  COMPETENCIES.forEach((comp, ci) => {
+    const sec = document.createElement("div");
+    sec.className = "competency-section";
+    const header = document.createElement("div");
+    header.className = "competency-header";
+    header.innerHTML = '<div class="competency-avg-badge" id="badge-' + ci + '">' +
+      '<div class="competency-avg-value" id="avg-' + ci + '"></div><div class="competency-avg-label">Avg</div></div>' +
+      '<div class="competency-name">' + comp.name + '</div>' +
+      '<div class="competency-definition">' + comp.definition + '</div>';
+    sec.appendChild(header);
+
+    const list = document.createElement("div");
+    list.className = "statements-list";
+    comp.statements.forEach((stmt, si) => {
+      const row = document.createElement("div");
+      row.className = "statement-row";
+      const txt = document.createElement("div");
+      txt.className = "statement-text";
+      txt.textContent = stmt;
+      row.appendChild(txt);
+
+      const scale = document.createElement("div");
+      scale.className = "radio-scale";
+      [1,2,3,4,5].forEach(v => {
+        const lab = document.createElement("label");
+        lab.className = "radio-option";
+        lab.setAttribute("data-val", String(v));
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "q-" + ci + "-" + si;
+        input.value = String(v);
+        input.onchange = () => recordAnswer(ci + "-" + si, v);
+        const btn = document.createElement("div");
+        btn.className = "radio-btn";
+        btn.textContent = String(v);
+        const lbl = document.createElement("span");
+        lbl.className = "radio-label";
+        lbl.textContent = ["Almost Never","Rarely","Sometimes","Often","Almost Always"][v-1];
+        lab.appendChild(input);
+        lab.appendChild(btn);
+        lab.appendChild(lbl);
+        scale.appendChild(lab);
+      });
+      row.appendChild(scale);
+      list.appendChild(row);
+    });
+    sec.appendChild(list);
+
+    const nav = document.createElement("div");
+    nav.className = "wizard-nav";
+    const prevStep = ci; // intro is 0, first comp is 1
+    const nextStep = ci + 2; // intro=0, this comp=ci+1
+    const isLast = ci === COMPETENCIES.length - 1;
+    nav.innerHTML = '<div class="wizard-step-ind">Competency ' + (ci+1) + ' of ' + COMPETENCIES.length + '</div>' +
+      '<div><button class="btn btn-secondary" onclick="goTo(' + prevStep + ')">Previous</button> ' +
+      '<button class="btn btn-gold btn-next" onclick="' + (isLast ? "showResults()" : ("goTo(" + nextStep + ")")) + '">' + (isLast ? "View My Results" : "Next") + '</button></div>';
+    sec.appendChild(nav);
+    a.appendChild(sec);
+  });
+
+  steps = Array.from(document.querySelectorAll("#assessment .competency-section"));
+  steps.forEach((el, i) => {
+    el.classList.add("step");
+    if (i === 0) el.classList.add("active");
+  });
+  updateNavState();
+  updateHeaderForStep();
+}
+
+// SEND RESULTS TO POWER AUTOMATE / EXCEL
+function sendResultsToExcel() {
+  const payload = {
+    timestamp: new Date().toISOString(),
+    assessmentName: ASSESSMENTNAME,
+    rows: buildSubmissionRows()
+  };
+  fetch(POWERAUTOMATEURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(() => console.log("Results sent to Excel"))
+    .catch(err => console.error("Excel submission failed", err));
+}
+
+window.addEventListener("DOMContentLoaded", buildWizard);
+document.addEventListener("keydown", (e) => {
+  const t = e.target;
+  if (e.key === "Enter" && t && t.id === "userName") {
+    e.preventDefault();
+    goTo(1);
+  }
+});
+</script>
+</body>
+</html>
