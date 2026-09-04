@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Fred Hutch Core Competencies</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@400;500;600&display=swap');
+
+.fh-competencies, .fh-competencies *, .fh-competencies *::before, .fh-competencies *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.fh-competencies {
+  color-scheme: light only;
+  --navy: #18365D;
+  --white: #ffffff;
+  --lgray: #f4f4f4;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--lgray);
+  color: var(--navy);
+  padding: 2.5rem 1rem 4rem;
+}
+
+.fh-competencies .page-header {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  border-left: 5px solid var(--navy);
+  padding-left: 1.25rem;
+}
+
+.fh-competencies .page-header h1 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 0.45rem;
+}
+
+.fh-competencies .page-header p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-style: italic;
+}
+
+.fh-competencies .accordion-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.fh-competencies .accordion-toggle {
+  display: none;
+}
+
+.fh-competencies .accordion-item {
+  background: var(--white);
+  border-radius: 6px;
+  border: 1px solid #dde3ec;
+  border-left: 4px solid var(--navy);
+  overflow: hidden;
+}
+
+.fh-competencies .accordion-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fh-competencies .accordion-label:hover {
+  background: #f7f9fc;
+}
+
+.fh-competencies .chevron {
+  flex-shrink: 0;
+  margin-top: 5px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--navy);
+  transition: transform 0.25s ease;
+}
+
+.fh-competencies .accordion-toggle:checked + .accordion-label .chevron {
+  transform: rotate(90deg);
+}
+
+.fh-competencies .accordion-toggle:checked + .accordion-label {
+  background: #f7f9fc;
+}
+
+.fh-competencies .summary-text {
+  flex: 1;
+}
+
+.fh-competencies .competency-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.fh-competencies .competency-subtitle {
+  font-size: 0.855rem;
+  color: #000000 !important;
+  margin-top: 0.18rem;
+  font-style: italic;
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+}
+
+.fh-competencies .bullet-content {
+  display: none;
+  padding: 0 1.15rem 1rem 1.15rem;
+  border-top: 1px solid #edf0f5;
+}
+
+.fh-competencies .accordion-toggle:checked ~ .bullet-content {
+  display: block;
+}
+
+.fh-competencies .bullet-content ul {
+  list-style: none;
+}
+
+.fh-competencies .bullet-content ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  font-size: 0.92rem;
+  color: #2d3a4e;
+  line-height: 1.5;
+  border-bottom: 1px solid #f0f3f7;
+}
+
+.fh-competencies .bullet-content ul li:last-child {
+  border-bottom: none;
+}
+
+.fh-competencies .bullet-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--navy);
+  margin-top: 7px;
+}
+
+.fh-competencies .playlist-link-row {
+  display: block;
+  padding: 0.45rem 0 0.1rem;
+  font-size: 0.92rem;
+}
+
+.fh-competencies .playlist-link-row a {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.fh-competencies .footer-note {
+  max-width: 720px;
+  margin: 2rem auto 0;
+  font-size: 0.8rem;
+  color: #8898aa;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="fh-competencies">
+
+<div class="page-header">
+<h1>Core Competencies</h1>
+<p>Apply to all employees at Fred Hutch — click any competency to expand.</p>
+</div>
+
+<div class="accordion-list">
+
+<!-- 1. Exhibits Accountability -->
+<div class="accordion-item">
+<input type="checkbox" id="comp1" class="accordion-toggle">
+<label for="comp1" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Exhibits Accountability</span>
+<span class="competency-subtitle">Holds self and others to meet commitments.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Accepts responsibility for one's actions.</span></li>
+<li><span class="bullet-dot"></span><span>Follows through on commitments and supports others to do the same.</span></li>
+<li><span class="bullet-dot"></span><span>Acts with a clear sense of ownership.</span></li>
+<li><span class="bullet-dot"></span><span>Asks for and provides clarity on expectations, roles, and responsibilities.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="/catalog/CustomPage.aspx?id=221000527" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 2. Demonstrates Change Agility -->
+<div class="accordion-item">
+<input type="checkbox" id="comp2" class="accordion-toggle">
+<label for="comp2" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Demonstrates Change Agility</span>
+<span class="competency-subtitle">Responds effectively and adapts to change.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Operates effectively during uncertainty and ambiguity.</span></li>
+<li><span class="bullet-dot"></span><span>Can decide and act without the full picture.</span></li>
+<li><span class="bullet-dot"></span><span>Adapts approach and style to meet the shifting conditions and demands.</span></li>
+<li><span class="bullet-dot"></span><span>Takes constructive action to navigate difficulties or obstacles.</span></li>
+<li><span class="bullet-dot"></span><span>Learns quickly when faced with new situations.</span></li>
+<li><span class="bullet-dot"></span><span>Bounces back from setbacks and grows from hardships.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="https://fredhutch.csod.com/samldefault.aspx?&returnurl=%252fDeepLink%252fProcessRedirect.aspx%253fmodule%253dphnxdriver%2526routename%253dAdmin%252fPlayerPageRedirectHandler%2526Route%253d%25252flms-learner-playlist%25252fPlaylistDetails%2526Parameters%253dplaylistId%25253d9b62387a-462b-4272-b3e0-4d2eb610072e" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 3. Collaborates -->
+<div class="accordion-item">
+<input type="checkbox" id="comp3" class="accordion-toggle">
+<label for="comp3" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Collaborates</span>
+<span class="competency-subtitle">Builds partnerships and works cooperatively with others to meet shared objectives.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Builds partnerships and works with others, in and across organizations, to achieve shared objectives.</span></li>
+<li><span class="bullet-dot"></span><span>Balances own interests with other people's interests.</span></li>
+<li><span class="bullet-dot"></span><span>Resolves conflict while maintaining relationships.</span></li>
+<li><span class="bullet-dot"></span><span>Credits others for their contributions and accomplishments.</span></li>
+<li><span class="bullet-dot"></span><span>Gains trust and support of others.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 4. Communicates Effectively -->
+<div class="accordion-item">
+<input type="checkbox" id="comp4" class="accordion-toggle">
+<label for="comp4" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Communicates Effectively</span>
+<span class="competency-subtitle">Develops and delivers multi-mode communications that convey a clear understanding of the unique needs of different audiences.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Conveys and receives information clearly.</span></li>
+<li><span class="bullet-dot"></span><span>Checks for understanding when giving and receiving information.</span></li>
+<li><span class="bullet-dot"></span><span>Adapts style to fit the audience and the message.</span></li>
+<li><span class="bullet-dot"></span><span>Attentively listens to others.</span></li>
+<li><span class="bullet-dot"></span><span>Encourages the open expression of diverse ideas and opinions.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 5. Interpersonal Savvy -->
+<div class="accordion-item">
+<input type="checkbox" id="comp5" class="accordion-toggle">
+<label for="comp5" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Interpersonal Savvy</span>
+<span class="competency-subtitle">Relates openly and comfortably with diverse groups of people.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Able to relate to and build solid working relationships with people.</span></li>
+<li><span class="bullet-dot"></span><span>Acts with diplomacy, tact, and respect.</span></li>
+<li><span class="bullet-dot"></span><span>Builds rapport in an open, friendly, and accepting way.</span></li>
+<li><span class="bullet-dot"></span><span>Values different styles, cultures, perspectives.</span></li>
+<li><span class="bullet-dot"></span><span>Responds with curiosity to conflict and feedback.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 6. Results-Oriented -->
+<div class="accordion-item">
+<input type="checkbox" id="comp6" class="accordion-toggle">
+<label for="comp6" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Results-Oriented</span>
+<span class="competency-subtitle">Consistently achieves results, even under tough circumstances.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Acts in a timely manner.</span></li>
+<li><span class="bullet-dot"></span><span>Persists in accomplishing objectives despite obstacles and setbacks.</span></li>
+<li><span class="bullet-dot"></span><span>Strives for efficiency and effectiveness.</span></li>
+<li><span class="bullet-dot"></span><span>Displays a can-do attitude.</span></li>
+<li><span class="bullet-dot"></span><span>Pushes self and helps others achieve results.</span></li>
+<li><span class="bullet-dot"></span><span>Steps up to handle tough issues.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 7. Demonstrates Self-Awareness -->
+<div class="accordion-item">
+<input type="checkbox" id="comp7" class="accordion-toggle">
+<label for="comp7" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Demonstrates Self-Awareness</span>
+<span class="competency-subtitle">Uses a combination of feedback and reflection to gain insight into personal strengths, weaknesses, and impact on others.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Understands one's emotions, styles, strengths, weaknesses, and recognizes the appropriate time and place to express them.</span></li>
+<li><span class="bullet-dot"></span><span>Uses feedback and reflection on impact to improve individual effectiveness.</span></li>
+<li><span class="bullet-dot"></span><span>Able to articulate causes behind own feelings and mood.</span></li>
+<li><span class="bullet-dot"></span><span>Reflects on actions and impact on others.</span></li>
+<li><span class="bullet-dot"></span><span>Proactively seeks feedback without becoming defensive.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 8. Instills Trust -->
+<div class="accordion-item">
+<input type="checkbox" id="comp8" class="accordion-toggle">
+<label for="comp8" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Instills Trust</span>
+<span class="competency-subtitle">Gains the confidence and trust of others through honesty, integrity, and authenticity.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Acts with honesty, integrity, and authenticity.</span></li>
+<li><span class="bullet-dot"></span><span>Gains confidence and trust of others.</span></li>
+<li><span class="bullet-dot"></span><span>Follows through on commitments.</span></li>
+<li><span class="bullet-dot"></span><span>Is seen as direct and truthful.</span></li>
+<li><span class="bullet-dot"></span><span>Shows consistency between words and actions.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+</div>
+
+<p class="footer-note">Fred Hutch Core Competencies — All Employees</p>
+
+</div>
+
+</body>
+</html>

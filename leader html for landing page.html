@@ -1,0 +1,293 @@
+<div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Fred Hutch Leader Competencies</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@400;500;600&display=swap');
+
+.fh-leader-competencies, .fh-leader-competencies *, .fh-leader-competencies *::before, .fh-leader-competencies *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.fh-leader-competencies {
+  color-scheme: light only;
+  --navy: #18365D;
+  --white: #ffffff;
+  --lgray: #f4f4f4;
+  --teal: #0A799A;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--lgray);
+  color: var(--navy);
+  padding: 2.5rem 1rem 4rem;
+}
+
+.fh-leader-competencies .page-header {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  border-left: 5px solid var(--teal);
+  padding-left: 1.25rem;
+}
+
+.fh-leader-competencies .page-header h1 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: var(--teal);
+  line-height: 1.15;
+  margin-bottom: 0.45rem;
+}
+
+.fh-leader-competencies .page-header p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-style: italic;
+}
+
+.fh-leader-competencies .accordion-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.fh-leader-competencies .accordion-toggle {
+  display: none;
+}
+
+.fh-leader-competencies .accordion-item {
+  background: var(--white);
+  border-radius: 6px;
+  border: 1px solid #dde3ec;
+  border-left: 4px solid var(--teal);
+  overflow: hidden;
+}
+
+.fh-leader-competencies .accordion-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fh-leader-competencies .accordion-label:hover {
+  background: #f7f9fc;
+}
+
+.fh-leader-competencies .chevron {
+  flex-shrink: 0;
+  margin-top: 5px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--teal);
+  transition: transform 0.25s ease;
+}
+
+.fh-leader-competencies .accordion-toggle:checked + .accordion-label .chevron {
+  transform: rotate(90deg);
+}
+
+.fh-leader-competencies .accordion-toggle:checked + .accordion-label {
+  background: #f7f9fc;
+}
+
+.fh-leader-competencies .summary-text {
+  flex: 1;
+}
+
+.fh-leader-competencies .competency-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--teal);
+  line-height: 1.3;
+}
+
+.fh-leader-competencies .competency-subtitle {
+  font-size: 0.855rem;
+  color: #000000 !important;
+  margin-top: 0.18rem;
+  font-style: italic;
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+}
+
+.fh-leader-competencies .bullet-content {
+  display: none;
+  padding: 0 1.15rem 1rem 1.15rem;
+  border-top: 1px solid #edf0f5;
+}
+
+.fh-leader-competencies .accordion-toggle:checked ~ .bullet-content {
+  display: block;
+}
+
+.fh-leader-competencies .bullet-content ul {
+  list-style: none;
+}
+
+.fh-leader-competencies .bullet-content ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  font-size: 0.92rem;
+  color: #2d3a4e;
+  line-height: 1.5;
+  border-bottom: 1px solid #f0f3f7;
+}
+
+.fh-leader-competencies .bullet-content ul li:last-child {
+  border-bottom: none;
+}
+
+.fh-leader-competencies .bullet-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-top: 7px;
+}
+
+.fh-leader-competencies .playlist-link-row {
+  display: block;
+  padding: 0.45rem 0 0.1rem;
+  font-size: 0.92rem;
+}
+
+.fh-leader-competencies .playlist-link-row a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+
+.fh-leader-competencies .footer-note {
+  max-width: 720px;
+  margin: 2rem auto 0;
+  font-size: 0.8rem;
+  color: #8898aa;
+  text-align: center;
+}
+</style>
+</div>
+<div>
+
+<div class="fh-leader-competencies">
+
+<div class="page-header">
+<h1>Leader Competencies</h1>
+<p>Apply to all people managers at Fred Hutch — click any competency to expand.</p>
+</div>
+
+<div class="accordion-list">
+
+<!-- 1. Builds Effective Teams -->
+<div class="accordion-item">
+<input type="checkbox" id="lcomp1" class="accordion-toggle">
+<label for="lcomp1" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Builds Effective Teams</span>
+<span class="competency-subtitle">Builds teams that apply their skills and perspectives to achieve common goals.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Provides a compelling vision and direction.</span></li>
+<li><span class="bullet-dot"></span><span>Creates a climate where each team member is motivated to do their best to achieve goals.</span></li>
+<li><span class="bullet-dot"></span><span>Manages conflict effectively.</span></li>
+<li><span class="bullet-dot"></span><span>Forms teams with appropriate and diverse mix of styles, perspectives, and experience.</span></li>
+<li><span class="bullet-dot"></span><span>Fosters open dialogue and collaboration within and among teams.</span></li>
+<li><span class="bullet-dot"></span><span>Defines success in terms of the whole team, shares wins and rewards team efforts.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 2. Develops Talent -->
+<div class="accordion-item">
+<input type="checkbox" id="lcomp2" class="accordion-toggle">
+<label for="lcomp2" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Develops Talent</span>
+<span class="competency-subtitle">Develops people to meet both their career goals and the organization's goals.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Places a high priority on developing others.</span></li>
+<li><span class="bullet-dot"></span><span>Nurtures the skills and abilities of all people according to their specific needs.</span></li>
+<li><span class="bullet-dot"></span><span>Fosters a culture of continuous learning and improvement.</span></li>
+<li><span class="bullet-dot"></span><span>Develops others through coaching, feedback, exposure, and stretch assignments.</span></li>
+<li><span class="bullet-dot"></span><span>Aligns employee career development goals with organizational objectives.</span></li>
+<li><span class="bullet-dot"></span><span>Encourages people to accept developmental moves.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 3. Organizational Savvy -->
+<div class="accordion-item">
+<input type="checkbox" id="lcomp3" class="accordion-toggle">
+<label for="lcomp3" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Organizational Savvy</span>
+<span class="competency-subtitle">Maneuvers comfortably through complex policy, processes, and people-related organizational dynamics.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Understands the connections and dynamics between groups.</span></li>
+<li><span class="bullet-dot"></span><span>Demonstrates sensitivity to how organizations and people function.</span></li>
+<li><span class="bullet-dot"></span><span>Understands other group's priorities and balances needs of stakeholders.</span></li>
+<li><span class="bullet-dot"></span><span>Identifies opportunities and obstacles and develops plans to work through them.</span></li>
+<li><span class="bullet-dot"></span><span>Steers through the organizational maze to get things done.</span></li>
+<li><span class="bullet-dot"></span><span>Uses knowledge of organizational culture to achieve objectives.</span></li>
+<li><span class="bullet-dot"></span><span>Understands the broader systems in which the organization operates.</span></li>
+<li><span class="bullet-dot"></span><span>Knows how the non-profit life sciences and healthcare industries work.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+<!-- 4. Plans and Directs Work -->
+<div class="accordion-item">
+<input type="checkbox" id="lcomp4" class="accordion-toggle">
+<label for="lcomp4" class="accordion-label">
+<span class="chevron"></span>
+<span class="summary-text">
+<span class="competency-title">Plans and Directs Work</span>
+<span class="competency-subtitle">Prioritizes, plans, provides direction, delegates, and removes obstacles to get work done and meet organizational goals.</span>
+</span>
+</label>
+<div class="bullet-content">
+<ul>
+<li><span class="bullet-dot"></span><span>Plans and prioritizes work to align with broader organizational goals.</span></li>
+<li><span class="bullet-dot"></span><span>Provides clear expectations, direction, and accountabilities.</span></li>
+<li><span class="bullet-dot"></span><span>Steps up to hold difficult conversations.</span></li>
+<li><span class="bullet-dot"></span><span>Delegates and distributes assignments and decisions appropriately.</span></li>
+<li><span class="bullet-dot"></span><span>Provides appropriate guidance and direction based on people's capabilities.</span></li>
+<li><span class="bullet-dot"></span><span>Facilitates dialogue with and between team members to track progress.</span></li>
+<li><span class="bullet-dot"></span><span>Removes obstacles to help the team achieve goals.</span></li>
+</ul>
+<p class="playlist-link-row"><a href="../INSERT%20LINK%20HERE" target="_blank" rel="noopener noreferrer">Development ideas</a></p>
+</div>
+</div>
+
+</div>
+
+<p class="footer-note">Fred Hutch Leader Competencies — People Managers</p>
+
+</div>
+
+
+
+</div>
